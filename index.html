@@ -3,41 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حقيبة القدرات (17) - أ/ عبدالعزيز الفيفي</title>
+    <title>حقيبة القدرات (18) - أ/ عبدالعزيز الفيفي</title>
     <style>
         :root { 
-            --primary: #1a237e;   /* أزرق نيلي */
-            --secondary: #37474f; /* رمادي فحمي */
-            --accent: #ffab00;    /* ذهبي مشرق */
-            --bg: #f4f7f6; 
-            --white: #ffffff; 
-            --correct: #2e7d32;
-            --wrong: #c62828;
+            --primary: #1a237e; --secondary: #37474f; --accent: #ffab00; 
+            --bg: #f4f7f6; --white: #ffffff; --correct: #2e7d32; --wrong: #c62828;
         }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); display: flex; justify-content: center; padding: 20px; line-height: 1.7; color: #333; }
         .quiz-card { background: var(--white); width: 100%; max-width: 950px; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); border-top: 15px solid var(--primary); padding: 30px; position: relative; }
         .header { text-align: center; border-bottom: 2px solid #eee; margin-bottom: 25px; padding-bottom: 15px; }
-        .teacher-sig { color: var(--primary); font-weight: bold; font-size: 1.5rem; margin: 0; }
         
-        .timer-container { position: sticky; top: 10px; background: var(--wrong); color: white; padding: 10px 25px; border-radius: 50px; font-weight: bold; font-size: 1.1rem; display: inline-block; margin-bottom: 20px; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .info-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; position: sticky; top: 10px; z-index: 1000; }
+        .student-badge { background: #e8eaf6; color: var(--primary); padding: 10px 20px; border-radius: 50px; font-weight: bold; border: 2px solid var(--primary); font-size: 1rem; }
+        
+        .timer-container { background: var(--secondary); color: white; padding: 10px 25px; border-radius: 50px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .timer-pulse { background: var(--wrong) !important; animation: pulse-animation 0.6s infinite alternate; transform: scale(1.1); }
+        @keyframes pulse-animation { from { transform: scale(1.1); } to { transform: scale(1.25); } }
         
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
         .option { padding: 18px; border: 2px solid #f0f0f0; border-radius: 15px; cursor: pointer; transition: 0.3s; font-weight: bold; background: #fafafa; font-size: 1.1rem; text-align: center; }
         .option:hover { border-color: var(--primary); background: #fdf7ff; transform: translateY(-2px); }
-        
         .correct-opt { background: var(--correct) !important; color: white; border-color: var(--correct) !important; }
         .wrong-opt { background: var(--wrong) !important; color: white; border-color: var(--wrong) !important; }
         
-        .feedback-box { margin-top: 20px; padding: 20px; border-radius: 15px; background: #fffde7; border-right: 8px solid var(--accent); display: none; font-size: 1.05rem; box-shadow: inset 0 0 10px rgba(0,0,0,0.02); }
+        .feedback-box { margin-top: 20px; padding: 25px; border-radius: 15px; background: #fffde7; border-right: 10px solid var(--accent); display: none; font-size: 1.1rem; }
         .btn { background: var(--secondary); color: white; padding: 16px 45px; border: none; border-radius: 12px; cursor: pointer; font-size: 1.2rem; font-weight: bold; transition: 0.3s; }
-        .btn:hover { background: var(--primary); transform: scale(1.02); }
-        
+        .btn:hover { background: var(--primary); }
+
         .result-table { width: 100%; border-collapse: collapse; margin-top: 25px; background: white; }
         .result-table th { background: var(--primary); color: white; padding: 12px; }
-        .result-table td { border: 1px solid #ddd; padding: 12px; text-align: center; font-size: 0.9rem; }
+        .result-table td { border: 1px solid #ddd; padding: 12px; text-align: center; }
         
         .hidden { display: none; }
-        .locked { text-align: center; color: red; margin-top: 100px; padding: 50px; border: 5px solid red; background: white; border-radius: 20px; }
+        .locked { text-align: center; color: red; padding: 50px; border: 5px solid red; border-radius: 20px; }
     </style>
 </head>
 <body id="main-body">
@@ -45,23 +43,26 @@
 <div class="quiz-card" id="quiz-container">
     <div class="header">
         <h3 id="author-name">✨ أ / عبد العزيز الفيفي - ثانوية الأمير عبدالمجيد 🎓</h3>
-        <h2 id="quiz-title">اختبار التناظر اللفظي - النموذج (17) المطور</h2>
+        <h2 id="quiz-title">اختبار التناظر اللفظي - النموذج (18) المطور</h2>
     </div>
 
     <div id="start-page" style="text-align: center;">
-        <p style="font-size: 1.2rem; margin-bottom: 20px;">⏱️ 45 ثانية لكل سؤال | 📊 ملخص مراجعة ختامي | 💡 تحليل منطقي موسع</p>
+        <p style="font-size: 1.2rem; margin-bottom: 20px;">⏱️ 45 ثانية لكل سؤال | 🔀 خلط عشوائي كامل | 💡 تحليل منطقي موسع لكل لوحة</p>
         <input type="text" id="studentNameInput" placeholder="أدخل اسمك الثلاثي" style="width: 75%; padding: 15px; border-radius: 10px; border: 2px solid #ccc; text-align: center; font-size: 1.1rem; margin-bottom: 20px;">
         <br><button class="btn" onclick="startQuizAction()">ابدأ الاختبار 🚀</button>
     </div>
 
     <div id="quiz-page" class="hidden">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-            <div id="progress-text" style="font-weight: bold; color: var(--primary);"></div>
-            <div class="timer-container">⏳ المتبقي: <span id="timer-val">45</span> ثانية</div>
+        <div class="info-bar">
+            <div id="current-student-display" class="student-badge"></div>
+            <div id="timer-box" class="timer-container">⏳ المتبقي: <span id="timer-val">45</span> ثانية</div>
         </div>
+        
+        <div id="progress-text" style="font-weight: bold; color: var(--primary); margin-bottom: 10px;"></div>
         <div id="question-display" style="font-size: 1.8rem; text-align: center; margin: 25px 0; font-weight: 800; color: var(--primary); background: #f9f9f9; padding: 25px; border-radius: 20px; border: 1px solid #eee;"></div>
         <div id="options-container" class="options-grid"></div>
         <div id="feedback-display" class="feedback-box"></div>
+        
         <div style="text-align: center; margin-top: 30px;">
             <button id="next-btn" class="btn hidden" onclick="loadNextQuestion()">السؤال التالي ⮕</button>
         </div>
@@ -69,24 +70,23 @@
 
     <div id="result-page" class="hidden">
         <div style="text-align: center; padding: 30px; background: #e8eaf6; border-radius: 20px; border: 3px solid var(--primary); margin-bottom: 30px;">
-            <h2 id="score-display" style="color: var(--primary); margin:0; font-size: 2.5rem;"></h2>
-            <p id="student-greeting" style="font-size: 1.2rem; margin-top:10px;"></p>
+            <h1 id="score-display" style="color: var(--primary); margin:0; font-size: 3rem;"></h1>
+            <h2 id="final-student-name" style="color: var(--secondary); margin-top: 15px;"></h2>
         </div>
-        <h3 style="color: var(--secondary); border-right: 5px solid var(--accent); padding-right: 15px;">📊 تقرير المراجعة والتحليل المنطقي:</h3>
         <table class="result-table">
             <thead>
                 <tr>
                     <th>السؤال</th>
                     <th>إجابتك</th>
                     <th>الصحيحة</th>
-                    <th>التحليل المنطقي</th>
+                    <th>التحليل المنطقي الموسع</th>
                 </tr>
             </thead>
             <tbody id="summary-body"></tbody>
         </table>
         <div style="text-align: center; margin-top: 40px;">
             <p style="font-weight: bold; color: var(--primary);">✨ أ / عبد العزيز الفيفي - ثانوية الأمير عبدالمجيد 🎓</p>
-            <button class="btn" onclick="location.reload()">إعادة الاختبار</button>
+            <button class="btn" onclick="location.reload()">إعادة الاختبار 🔀</button>
         </div>
     </div>
 </div>
@@ -97,85 +97,104 @@
         setInterval(() => {
             const auth = document.getElementById('author-name');
             if (!auth || !auth.innerText.includes(teacher)) {
-                document.getElementById('main-body').innerHTML = '<div class="locked"><h1>⚠️ خرق حماية الملكية</h1><p>هذا العمل ملك للأستاذ عبدالعزيز الفيفي.</p></div>';
+                document.getElementById('main-body').innerHTML = '<div class="locked"><h1>⚠️ خرق حماية الملكية</h1></div>';
             }
         }, 2000);
     })();
 
     const questionsPool = [
-        { q: "صورة : إطار", c: "جزيرة : ماء", a: ["جزيرة : ماء", "بيت : سور", "جيد : قلادة", "إصبع : خاتم"], r: "العلاقة (إحاطة): الإطار يحيط بالصورة والماء يحيط بالجزيرة." },
-        { q: "بيت : سور", c: "جيد : قلادة", a: ["جيد : قلادة", "نطاق : خصر", "إسورة : معصم", "كعبة : مطاف"], r: "العلاقة (إحاطة): السور يحيط بالبيت والقلادة تحيط بالجيد (العنق)." },
-        { q: "إصبع : خاتم", c: "إسورة : معصم", a: ["إسورة : معصم", "نطاق : خصر", "كعبة : مطاف", "صورة : إطار"], r: "العلاقة (إحاطة): الخاتم يحيط بالإصبع والإسورة تحيط بالمعصم." },
-        { q: "نطاق : خصر", c: "كعبة : مطاف", a: ["كعبة : مطاف", "بيت : سور", "جزيرة : ماء", "جيد : قلادة"], r: "العلاقة (إحاطة): النطاق يحيط بالخصر والمطاف يحيط بالكعبة." },
-        { q: "خبراء : تقرير", c: "بناؤون : صرح", a: ["بناؤون : صرح", "خطباء : خطب", "شعراء : ملحمة", "معلم : شرح"], r: "العلاقة (إنتاج): الخبراء ينتجون تقريراً والبناؤون ينتجون صرحاً." },
-        { q: "خطباء : خطب", c: "شعراء : ملحمة", a: ["شعراء : ملحمة", "خبراء : تقرير", "بناؤون : صرح", "طبيب : علاج"], r: "العلاقة (إنتاج): الخطيب ينتج خطبة والشاعر ينتج ملحمة." },
-        { q: "حر : مكيف", c: "مطر : مظلة", a: ["مطر : مظلة", "برودة : ملابس", "جوع : طعام", "مرض : دواء"], r: "العلاقة (حل المشكلة): المكيف يحل مشكلة الحر والمظلة تحل مشكلة المطر." },
-        { q: "برودة : ملابس", c: "جوع : طعام", a: ["جوع : طعام", "حر : مكيف", "مطر : مظلة", "ظلام : مصباح"], r: "العلاقة (حل المشكلة): الملابس تحمي من البرودة والطعام ينهي الجوع." },
-        { q: "قاضي : عادل", c: "طبيب : أمين", a: ["طبيب : أمين", "معلم : فاضل", "عالم : وقور", "جندي : شجاع"], r: "العلاقة (صفة لازمة): ينبغي للقاضي أن يكون عادلاً وللطبيب أن يكون أميناً." },
-        { q: "معلم : فاضل", c: "عالم : وقور", a: ["عالم : وقور", "قاضي : عادل", "طبيب : أمين", "حاكم : منصف"], r: "العلاقة (صفة لازمة): ينبغي للمعلم أن يكون فاضلاً وللعالم أن يكون وقوراً." },
-        { q: "قاضي : ظالم", c: "طبيب : خائن", a: ["طبيب : خائن", "معلم : جاهل", "عالم : مندفع", "حاكم : مستبد"], r: "العلاقة (صفة مرفوضة): ينبغي ألا يكون القاضي ظالماً ولا الطبيب خائناً." },
-        { q: "معلم : جاهل", c: "عالم : مندفع", a: ["عالم : مندفع", "قاضي : ظالم", "طبيب : خائن", "تاجر : غشاش"], r: "العلاقة (صفة مرفوضة): ينبغي ألا يكون المعلم جاهلاً ولا العالم مندفعاً." },
-        { q: "ماء : جزيرة", c: "إطار : صورة", a: ["إطار : صورة", "سور : بيت", "قلادة : جيد", "خاتم : إصبع"], r: "العلاقة (إحاطة): الماء يحيط بالجزيرة والإطار يحيط بالصورة." },
-        { q: "سور : بيت", c: "مطاف : كعبة", a: ["مطاف : كعبة", "خاتم : إصبع", "قلادة : جيد", "نطاق : خصر"], r: "العلاقة (إحاطة): السور يحيط بالبيت والمطاف يحيط بالكعبة." },
-        { q: "معصم : إسورة", c: "جيد : قلادة", a: ["جيد : قلادة", "خصر : نطاق", "إطار : صورة", "سور : بيت"], r: "العلاقة (إحاطة): الإسورة تحيط بالمعصم والقلادة تحيط بالجيد." },
-        { q: "تقرير : خبراء", c: "صرح : بناؤون", a: ["صرح : بناؤون", "ملحمة : شعراء", "خطب : خطباء", "شرح : معلم"], r: "العلاقة (المنتج ومنتجه): التقرير من الخبراء والصرح من البنائين." },
-        { q: "ملحمة : شعراء", c: "خطب : خطباء", a: ["خطب : خطباء", "صرح : بناؤون", "تقرير : خبراء", "علاج : طبيب"], r: "العلاقة (المنتج ومنتجه): الملحمة من الشعراء والخطب من الخطباء." },
-        { q: "مكيف : حر", c: "مظلة : مطر", a: ["مظلة : مطر", "طعام : جوع", "ملابس : برودة", "دواء : مرض"], r: "العلاقة (وسيلة الحل): المكيف للحر والمظلة للمطر." },
-        { q: "طعام : جوع", c: "ملابس : برودة", a: ["ملابس : برودة", "مظلة : مطر", "دواء : مرض", "مصباح : ظلام"], r: "العلاقة (وسيلة الحل): الطعام للجوع والملابس للبرودة." },
-        { q: "عادل : قاضي", c: "أمين : طبيب", a: ["أمين : طبيب", "فاضل : معلم", "وقور : عالم", "شجاع : جندي"], r: "العلاقة (الصفة وصاحبها): العدل للقاضي والأمانة للطبيب." },
-        { q: "ظالم : قاضي", c: "خائن : طبيب", a: ["خائن : طبيب", "جاهل : معلم", "مندفع : عالم", "غشاش : تاجر"], r: "العلاقة (الصفة المرفوضة): الظلم يرفض في القاضي والخيانة ترفض في الطبيب." },
-        { q: "خاتم : إصبع", c: "نطاق : خصر", a: ["نطاق : خصر", "سور : بيت", "ماء : جزيرة", "قلادة : جيد"], r: "العلاقة (إحاطة): الخاتم يحيط بالإصبع والنطاق يحيط بالخصر." },
-        { q: "مطر : مظلة", c: "برودة : ملابس", a: ["برودة : ملابس", "حر : مكيف", "جوع : طعام", "مرض : دواء"], r: "العلاقة (مشكلة وحل): المطر يحتاج مظلة والبرودة تحتاج ملابس." },
-        { q: "عالم : وقور", c: "معلم : فاضل", a: ["معلم : فاضل", "قاضي : عادل", "طبيب : أمين", "حاكم : منصف"], r: "العلاقة (ينبغي أن يكون): العالم وقور والمعلم فاضل." },
-        { q: "خائن : طبيب", c: "مندفع : عالم", a: ["مندفع : عالم", "ظالم : قاضي", "جاهل : معلم", "مستبد : حاكم"], r: "العلاقة (ينبغي ألا يكون): الطبيب لا يخون والعالم لا يندفع." },
-        { q: "صرح : بناؤون", c: "تقرير : خبراء", a: ["تقرير : خبراء", "خطب : خطباء", "ملحمة : شعراء", "قانون : مشرعون"], r: "العلاقة (الناتج ومنتجه): الصرح من البنائين والتقرير من الخبراء." },
-        { q: "خصر : نطاق", c: "جيد : قلادة", a: ["جيد : قلادة", "إصبع : خاتم", "بيت : سور", "معصم : إسورة"], r: "العلاقة (إحاطة): الخصر يحيط به النطاق والجيد تحيط به القلادة." },
-        { q: "مظلة : مطر", c: "دواء : مرض", a: ["دواء : مرض", "طعام : جوع", "ملابس : برودة", "مكيف : حر"], r: "العلاقة (حل للمشكلة): المظلة للمطر والدواء للمرض." },
-        { q: "فاضل : معلم", c: "عادل : قاضي", a: ["عادل : قاضي", "أمين : طبيب", "وقور : عالم", "شجاع : جندي"], r: "العلاقة (صفة محمودة): الفضل للمعلم والعدل للقاضي." },
-        { q: "جاهل : معلم", c: "ظالم : قاضي", a: ["ظالم : قاضي", "خائن : طبيب", "مندفع : عالم", "مستبد : حاكم"], r: "العلاقة (صفة مذمومة): الجهل في المعلم والظلم في القاضي." },
-        { q: "قلادة : جيد", c: "إسورة : معصم", a: ["إسورة : معصم", "خاتم : إصبع", "نطاق : خصر", "سور : بيت"], r: "العلاقة (إحاطة): القلادة تحيط بالجيد والإسورة تحيط بالمعصم." },
-        { q: "خطب : خطباء", c: "ملحمة : شعراء", a: ["ملحمة : شعراء", "صرح : بناؤون", "تقرير : خبراء", "شرح : معلم"], r: "العلاقة (إنتاج): الخطب من الخطباء والملاحم من الشعراء." },
-        { q: "برودة : معطف", c: "حر : مكيف", a: ["حر : مكيف", "مطر : مظلة", "جوع : طعام", "مرض : دواء"], r: "العلاقة (مشكلة وحل): البرودة يحلها المعطف والحر يحله المكيف." },
-        { q: "أمين : طبيب", c: "وقور : عالم", a: ["وقور : عالم", "عادل : قاضي", "فاضل : معلم", "منصف : حاكم"], r: "العلاقة (ينبغي أن يكون): الأمانة في الطبيب والوقار في العالم." },
-        { q: "مندفع : عالم", c: "جاهل : معلم", a: ["جاهل : معلم", "ظالم : قاضي", "خائن : طبيب", "مستبد : حاكم"], r: "العلاقة (ينبغي ألا يكون): الاندفاع ليس في العالم والجهل ليس في المعلم." },
-        { q: "إطار : صورة", c: "سور : بيت", a: ["سور : بيت", "ماء : جزيرة", "نطاق : خصر", "خاتم : إصبع"], r: "العلاقة (إحاطة): الإطار للصورة والسور للبيت." },
-        { q: "تقرير : خبراء", c: "ملحمة : شعراء", a: ["ملحمة : شعراء", "خطب : خطباء", "صرح : بناؤون", "شرح : معلم"], r: "العلاقة (ناتج فكري): التقرير للخبراء والملحمة للشعراء." },
-        { q: "جوع : طعام", c: "مرض : دواء", a: ["مرض : دواء", "مطر : مظلة", "برودة : ملابس", "حر : مكيف"], r: "العلاقة (مشكلة وحل): الجوع طعام والمرض دواء. ✨ أ / عبد العزيز الفيفي - ثانوية الأمير عبدالمجيد 🎓" }
+        { q: "لؤلؤ : بحر", c: "نفط : أرض", a: ["نفط : أرض", "حناء : كف", "منى : مزدلفة", "المدينة : طيبة"], r: "<b>الارتباط:</b> علاقة مكانية (مصدر الاستخراج)؛ اللؤلؤ يستخرج من البحر، والنفط يستخرج من باطن الأرض." },
+        { q: "أم القرى : مكة", c: "المدينة : طيبة", a: ["خيبر : عرفات", "يثرب : الطائف", "منى : مزدلفة", "المدينة : طيبة"], r: "<b>الارتباط:</b> علاقة مسمى ولقبه المشهور؛ أم القرى لقب لمكة، وطيبة لقب للمدينة المنورة." },
+        { q: "تميز : إبداع", c: "نجاح : اجتهاد", a: ["تفوق : شهادة", "فشل : إخفاق", "نجاح : اجتهاد", "تهاون : فشل"], r: "<b>الارتباط:</b> علاقة تلازم وسبب؛ التميز يؤدي للإبداع (أو ترادف في السياق العالي)، والنجاح يأتي من الاجتهاد." },
+        { q: "قوة : بطش", c: "ذكاء : دهاء", a: ["ذكاء : دهاء", "طفل : شاب", "سماء : أرض", "سلامة : صحة"], r: "<b>الارتباط:</b> علاقة تدرج في الشدة؛ البطش هو أقصى القوة، والدهاء هو أقصى الذكاء." },
+        { q: "ليل : أليل", c: "هول : هائل", a: ["شمس : مشمسة", "برق : صاعق", "هول : هائل", "نجم : لامع"], r: "<b>الارتباط:</b> علاقة تأكيد الوصف (الصفة المشتقة للمبالغة)؛ يقال ليل أليل للمبالغة، وهول هائل للمبالغة." },
+        { q: "سيارة : زيت", c: "إنسان : دم", a: ["إنسان : دم", "فلاح : مزرعة", "مريض : مستشفى", "نجم : لامع"], r: "<b>الارتباط:</b> علاقة احتياج حيوي للمحرك؛ المحرك يحتاج زيتاً ليعمل، والإنسان يحتاج للدم ليعيش." },
+        { q: "قنوط : رجاء", c: "شتاء : صيف", a: ["شمس : ضياء", "شتاء : صيف", "هول : هائل", "نجم : لامع"], r: "<b>الارتباط:</b> علاقة تضاد؛ القنوط (اليأس) عكس الرجاء، والشتاء عكس الصيف." },
+        { q: "مغزل : مقص", c: "منشار : مسمار", a: ["دراجة : عجلة", "جزار : منجرة", "منشار : مسمار", "معلم : مسطرة"], r: "<b>الارتباط:</b> علاقة فئة واحدة (أدوات يدوية قديمة/حرفية)." },
+        { q: "شريان : دم", c: "بحر : سمك", a: ["بحر : سمك", "فلاح : مزرعة", "منشار : مسمار", "معلم : مسطرة"], r: "<b>الارتباط:</b> علاقة وعاء ومحتوى؛ الشريان يجري فيه الدم، والبحر يحوي السمك." },
+        { q: "قرية : مدينة", c: "مدرسة : جامعة", a: ["مهر : حصان", "مدرسة : جامعة", "منشار : مسمار", "معلم : مسطرة"], r: "<b>الارتباط:</b> علاقة تدرج مكاني أو تنظيمي؛ القرية أصغر من المدينة، والمدرسة مرحلة قبل الجامعة." },
+        { q: "ملعقة : قدر", c: "دلو : بئر", a: ["دلو : بئر", "مدرسة : جامعة", "منشار : مسمار", "معلم : مسطرة"], r: "<b>الارتباط:</b> علاقة أداة الاستخراج من الوعاء؛ الملعقة للقدر، والدلو للبئر." },
+        { q: "بر : نزهة", c: "مكتبة : قراءة", a: ["مدينة : سفر", "حديقة : أزهار", "مصنع : صناعة", "مكتبة : قراءة"], r: "<b>الارتباط:</b> علاقة الغرض من المكان؛ البر غرضه النزهة، والمكتبة غرضها القراءة." },
+        { q: "حليم : عفو", c: "جبان : خوف", a: ["جبان : خوف", "كريم : مال", "مقاتل : سيف", "سوط : ضرب"], r: "<b>الارتباط:</b> علاقة صفة وملازمة؛ الحليم يتصف بالعفو، والجبان يتصف بالخوف." },
+        { q: "عاشوراء : محرم", c: "عرفة : ذو الحجة", a: ["رمضان : ليلة القدر", "عرفة : ذو الحجة", "شوال : العيد", "سوط : ضرب"], r: "<b>الارتباط:</b> علاقة زمانية (يوم وشهر)؛ عاشوراء في محرم، وعرفة في ذي الحجة." },
+        { q: "عسل : نحل", c: "عطر : ورد", a: ["عطر : ورد", "استنشاق : نظافة", "حذاء : قدم", "سوط : ضرب"], r: "<b>الارتباط:</b> علاقة مصدرية؛ العسل من النحل، والعطر من الورد." },
+        { q: "رجل : ذكورة", c: "طفولة : براءة", a: ["أم : ولادة", "طفولة : براءة", "مهندس : بناء", "سوط : ضرب"], r: "<b>الارتباط:</b> علاقة صفة ملازمة؛ الرجل يتصف بالذكورة، والطفولة تتصف بالبراءة." },
+        { q: "كسل : تخمة", c: "حركة : حياة", a: ["كتابة : قراءة", "فكرة : ذكاء", "حركة : حياة", "عمل : قوة"], r: "<b>الارتباط:</b> علاقة سبب ونتيجة؛ التخمة تسبب الكسل، والحركة تسبب الحياة (أو التفاعل)." },
+        { q: "ركاب : طائرة", c: "عائلة : منزل", a: ["أسد : عرين", "عائلة : منزل", "ذئب : غابة", "عمل : قوة"], r: "<b>الارتباط:</b> علاقة احتواء؛ الركاب داخل الطائرة، والعائلة داخل المنزل." },
+        { q: "كتاب : قراءة", c: "فواكه : أكل", a: ["قلم : تعبير", "فواكه : أكل", "طائرة : إقلاع", "عمل : قوة"], r: "<b>الارتباط:</b> علاقة وظيفة/غرض؛ الكتاب للقراءة، والفواكه للأكل." },
+        { q: "مربع : مكعب", c: "دائرة : كرة", a: ["دائرة : كرة", "فواكه : أكل", "طائرة : إقلاع", "عمل : قوة"], r: "<b>الارتباط:</b> علاقة شكل هندسي ومجسمه؛ المربع هو وجه المكعب، والدائرة هي وجه (أو أصل) الكرة." },
+        { q: "جنين : طفل", c: "شاب : صبي", a: ["غائب : حاضر", "صائم : مفطر", "شاب : صبي", "حي : ميت"], r: "<b>الارتباط:</b> علاقة تدرج عمري؛ الجنين يليه طفل، والشاب يليه الصبي (أو العكس حسب الترتيب في الفئات)." },
+        { q: "مشي : هرولة", c: "استراحة : تدريب", a: ["استراحة : تدريب", "نفس : شرب", "قلم : كتابة", "دنا : رجع"], r: "<b>الارتباط:</b> علاقة تدرج في السرعة/الفعل؛ الهرولة أسرع من المشي." },
+        { q: "فحم : رماد", c: "إنسان : موت", a: ["إنسان : موت", "شمس : غروب", "قلم : كتابة", "دنا : رجع"], r: "<b>الارتباط:</b> علاقة صيرورة ونهاية؛ الفحم يصير رماداً، والإنسان ينتهي بالموت." },
+        { q: "عمر : أجل", c: "قصة : خاتمة", a: ["موت : نهاية", "قصة : خاتمة", "يوم : شهر", "دنا : رجع"], r: "<b>الارتباط:</b> علاقة نهاية المدى؛ العمر ينتهي بالأجل، والقصة تنتهي بالخاتمة." },
+        { q: "بيت : راحة", c: "مدرسة : علم", a: ["مدرسة : علم", "قصة : خاتمة", "يوم : شهر", "دنا : رجع"], r: "<b>الارتباط:</b> علاقة غرض من المكان؛ البيت للراحة، والمدرسة للعلم." },
+        { q: "ظمأ : عطش", c: "فرح : سعادة", a: ["أبيض : أسود", "ليل : نهار", "أكل : شبع", "فرح : سعادة"], r: "<b>الارتباط:</b> علاقة ترادف؛ الظمأ هو العطش، والفرح هو السعادة." },
+        { q: "ظمأ : شرب", c: "جوع : طعام", a: ["أبيض : أسود", "ليل : نهار", "أكل : شبع", "جوع : طعام"], r: "<b>الارتباط:</b> علاقة احتياج وعلاج؛ الظمأ يحتاج شرباً، والجوع يحتاج طعاماً." },
+        { q: "الفلاح : البائع", c: "المؤلف : الناشر", a: ["المعلم : الطالب", "المؤلف : الناشر", "الكاتب : القارئ", "جوع : طعام"], r: "<b>الارتباط:</b> علاقة المنتج والموزع؛ الفلاح ينتج والبائع يوزع، والمؤلف يكتب والناشر يوزع." },
+        { q: "مزارع : بائع", c: "ناشر : مؤلف", a: ["كاتب : قارئ", "ناشر : مؤلف", "راعي : جزار", "جوع : طعام"], r: "<b>الارتباط:</b> علاقة توزيع الإنتاج؛ المزارع للمحصول والبائع للتصريف." },
+        { q: "ثقة : غرور", c: "طيبة : ضعف", a: ["جامد : سائل", "طيبة : ضعف", "راعي : جزار", "جوع : طعام"], r: "<b>الارتباط:</b> علاقة زيادة الشيء عن حده؛ الثقة الزائدة غرور، والطيبة الزائدة ضعف." },
+        { q: "جحر : عرين", c: "إسطبل : حظيرة", a: ["إسطبل : حظيرة", "نادي : لاعب", "مدرسة : مقصف", "باب : خشب"], r: "<b>الارتباط:</b> علاقة فئة واحدة (بيوت حيوانات)." },
+        { q: "سوق : محل", c: "مدرسة : مقصف", a: ["قواعد : كرسي", "نادي : لاعب", "مدرسة : مقصف", "باب : خشب"], r: "<b>الارتباط:</b> علاقة كل وجزء (مكان وتوابعه)؛ المحل في السوق، والمقصف في المدرسة." },
+        { q: "إثبات : سند", c: "سحاب : غيوم", a: ["سحاب : غيوم", "علوم : أحياء", "مدرسة : مقصف", "باب : خشب"], r: "<b>الارتباط:</b> علاقة ترادف أو تلازم؛ الإثبات يحتاج سنداً، والسحاب هو الغيوم." },
+        { q: "محكمة : عدل", c: "مدرسة : علم", a: ["مدرسة : علم", "مسجد : ذكر", "مدرسة : مقصف", "باب : خشب"], r: "<b>الارتباط:</b> الغرض الأساسي من المكان." },
+        { q: "دعاء : استجابة", c: "دواء : استفادة", a: ["عطاء : استزادة", "نداء : استغاثة", "دواء : استفادة", "عناء : استقالة"], r: "<b>الارتباط:</b> سبب ونتيجة مرجوة؛ الدعاء يتبعه استجابة، والدواء يتبعه استفادة." },
+        { q: "شاغرة : فارغة", c: "تردد : حيرة", a: ["خوف : أمل", "تردد : حيرة", "دواء : استفادة", "عناء : استقالة"], r: "<b>الارتباط:</b> علاقة ترادف." },
+        { q: "سماء : نجوم", c: "بحر : سمكة", a: ["صحراء : جرداء", "بحر : سمكة", "دواء : استفادة", "عناء : استقالة"], r: "<b>الارتباط:</b> علاقة مكانية (احتواء)؛ النجوم في السماء، والسمك في البحر." },
+        { q: "الأسرة : الأب", c: "الشركة : الرئيس", a: ["الشركة : الرئيس", "لا عب : نادي", "دواء : استفادة", "عناء : استقالة"], r: "<b>الارتباط:</b> علاقة القيادة والمسؤولية." },
+        { q: "الحي : البيت", c: "المدرسة : فصل", a: ["المدرسة : فصل", "لاعب : نادي", "دواء : استفادة", "عناء : استقالة"], r: "<b>الارتباط:</b> علاقة كل وجزء." },
+        { q: "هدوء : راحة", c: "الدواء : شفاء", a: ["الدواء : شفاء", "لاعب : نادي", "دواء : استفادة", "عناء : استقالة"], r: "<b>الارتباط:</b> سبب ونتيجة." },
+        { q: "سيارة : كفر", c: "غرفة : باب", a: ["قشر : برتقال", "مكتبة : دفتر", "فصل : ساحة", "غرفة : باب"], r: "<b>الارتباط:</b> جزء أساسي من الكل." },
+        { q: "ضرس : فم", c: "عظم : ضلع", a: ["عظم : ضلع", "شمس : مجرة", "فصل : ساحة", "غرفة : باب"], r: "<b>الارتباط:</b> جزء من كل (عضو ومكانه)." },
+        { q: "أول : بداية", c: "خاتمة : نهاية", a: ["أقصى : غاية", "خاتمة : نهاية", "مقدمة : فاتحة", "غرفة : باب"], r: "<b>الارتباط:</b> ترادف." },
+        { q: "نجار : خشب", c: "غواص : لؤلؤ", a: ["غواص : لؤلؤ", "حداد : مصنع", "معلم : حاسب", "غرفة : باب"], r: "<b>الارتباط:</b> صاحب مهنة ومادته الأساسية." },
+        { q: "انشراح : إيمان", c: "اجتهاد : نجاح", a: ["عمل : كسل", "انكسار : تسرب", "اجتهاد : نجاح", "إهدار : إسراف"], r: "<b>الارتباط:</b> أثر ونتيجة؛ الإيمان يسبب الانشراح، والاجتهاد يسبب النجاح. ✨ أ / عبد العزيز الفيفي 🎓" }
     ];
 
-    let currentIdx = 0, score = 0, timer, timeLeft = 45, logs = [];
+    let currentIdx = 0, score = 0, timer, timeLeft = 45, logs = [], activeQs = [], sName = "";
+
+    function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
 
     function startQuizAction() {
-        const name = document.getElementById('studentNameInput').value;
-        if (!name.trim()) { alert("يرجى كتابة الاسم الثلاثي"); return; }
+        sName = document.getElementById('studentNameInput').value;
+        if (!sName.trim()) { alert("يرجى كتابة اسمك الثلاثي"); return; }
+        activeQs = shuffle([...questionsPool]);
+        document.getElementById('current-student-display').innerText = "بطلنا: " + sName;
         document.getElementById('start-page').classList.add('hidden');
         document.getElementById('quiz-page').classList.remove('hidden');
-        document.getElementById('student-greeting').innerText = "بالتوفيق يا بطل: " + name;
         loadQuestion();
     }
 
     function startTimer() {
         clearInterval(timer);
         timeLeft = 45;
-        document.getElementById('timer-val').innerText = timeLeft;
+        const box = document.getElementById('timer-box');
+        const val = document.getElementById('timer-val');
+        box.classList.remove('timer-pulse');
+        val.innerText = timeLeft;
         timer = setInterval(() => {
             timeLeft--;
-            document.getElementById('timer-val').innerText = timeLeft;
+            val.innerText = timeLeft;
+            if (timeLeft <= 5) box.classList.add('timer-pulse');
             if (timeLeft <= 0) { clearInterval(timer); handleAns(null, null); }
         }, 1000);
     }
 
     function loadQuestion() {
-        if (currentIdx >= questionsPool.length) { endQuiz(); return; }
-        const q = questionsPool[currentIdx];
-        document.getElementById('progress-text').innerText = `السؤال ${currentIdx + 1} من ${questionsPool.length}`;
+        if (currentIdx >= activeQs.length) { endQuiz(); return; }
+        const q = activeQs[currentIdx];
+        document.getElementById('progress-text').innerText = `سؤال ${currentIdx + 1} من ${activeQs.length}`;
         document.getElementById('question-display').innerText = q.q;
         document.getElementById('feedback-display').style.display = 'none';
         document.getElementById('next-btn').classList.add('hidden');
-        
         const box = document.getElementById('options-container');
         box.innerHTML = '';
-        [...q.a].sort(() => Math.random() - 0.5).forEach(opt => {
+        shuffle([...q.a]).forEach(opt => {
             const div = document.createElement('div');
             div.className = 'option';
             div.innerText = opt;
@@ -187,35 +206,29 @@
 
     function handleAns(sel, el) {
         clearInterval(timer);
-        const q = questionsPool[currentIdx];
+        document.getElementById('timer-box').classList.remove('timer-pulse');
+        const q = activeQs[currentIdx];
         const opts = document.querySelectorAll('.option');
         opts.forEach(o => o.onclick = null);
-
         let isCorrect = (sel === q.c);
-        if (isCorrect) {
-            if(el) el.classList.add('correct-opt');
-            score++;
-        } else {
-            if(el) el.classList.add('wrong-opt');
-            opts.forEach(o => { if(o.innerText === q.c) o.classList.add('correct-opt'); });
-        }
-
+        if (isCorrect) { if(el) el.classList.add('correct-opt'); score++; }
+        else { if(el) el.classList.add('wrong-opt'); opts.forEach(o => { if(o.innerText === q.c) o.classList.add('correct-opt'); }); }
+        
         const fb = document.getElementById('feedback-display');
         fb.style.display = 'block';
-        fb.innerHTML = `<strong>💡 التحليل المنطقي:</strong> ${q.r}`;
+        fb.innerHTML = `<strong>💡 التحليل الموسع:</strong> ${q.r}<br><br><small>✨ أ / عبد العزيز الفيفي - ثانوية الأمير عبدالمجيد 🎓</small>`;
+        
         document.getElementById('next-btn').classList.remove('hidden');
         logs.push({ q: q.q, user: sel || "انتهى الوقت ⏰", correct: q.c, r: q.r });
     }
 
-    function loadNextQuestion() {
-        currentIdx++;
-        loadQuestion();
-    }
+    function loadNextQuestion() { currentIdx++; loadQuestion(); }
 
     function endQuiz() {
         document.getElementById('quiz-page').classList.add('hidden');
         document.getElementById('result-page').classList.remove('hidden');
-        document.getElementById('score-display').innerText = `نتيجتك النهائية: ${score} من ${questionsPool.length}`;
+        document.getElementById('score-display').innerText = `${score} / ${activeQs.length}`;
+        document.getElementById('final-student-name').innerText = `الطالب: ${sName}`;
         const tbody = document.getElementById('summary-body');
         logs.forEach(l => {
             tbody.innerHTML += `<tr><td>${l.q}</td><td style="color:${l.user === l.correct ? 'green':'red'}">${l.user}</td><td style="color:green; font-weight:bold">${l.correct}</td><td style="text-align:right">${l.r}</td></tr>`;
